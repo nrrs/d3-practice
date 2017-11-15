@@ -38,14 +38,15 @@
     const height = 500;
     const barWidth = 25;
 
-    svg.attr("width", width + margin)
-        .attr("height", height + margin)
+    svg.attr("width", width + margin*2)
+        .attr("height", height + margin*2)
+        .attr("style", "border: 1px solid red")
 
 
 
     const xAxis = d3.scaleLinear()
         .domain(d3.extent(data, (d, i) => i))
-        .range([0, width - barWidth]);
+        .range([0, width - barWidth - margin]);
 
     const yAxis = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.y)])
@@ -62,6 +63,19 @@
         .attr('width', barWidth)
         .attr('x', (d, i) => xAxis(i))
         .attr('fill', "red")
+    
+    const label = svg.selectAll('rect')
+                .data(data)
+                .enter()
+                .append('text');
+                // .data(data)
+                // .enter()
+                // .append("text")
+                // .attr("class", "label")
+                // .attr("x", (function (d) { return xScale(d.food) + xScale.rangeBand() / 2; }))
+                // .attr("y", function (d) { return yScale(d.quantity) + 1; })
+                // .attr("dy", ".75em")
+                // .text(function (d) { return d.quantity; }); 
 
     // d3.select("#container")
     //     .append("text")
